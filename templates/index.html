@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Zoo Management System</title>
+</head>
+<body>
+    <div class="container my-5">
+        <h1 class="text-center mb-4">Zoo Management System</h1>
+
+        <!-- Flash Messages -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                {% for category, message in messages %}
+                    <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+            {% endif %}
+        {% endwith %}
+
+        <!-- SQL Query Execution Form -->
+        <h3>Run SQL Query</h3>
+        <form action="/" method="POST" class="mb-4">
+            <div class="form-group">
+                <label for="predefined_query">Select a Predefined Query:</label>
+                <select name="predefined_query" class="form-control mb-2">
+                    <option value="">-- Select a Query --</option>
+                    {% for key, query in predefined_queries.items() %}
+                        <option value="{{ key }}" {% if selected_query == key %}selected{% endif %}>Query {{ key }}</option>
+                    {% endfor %}
+                </select>
+
+                <label for="sql_query">Or Enter Your Own SQL Query:</label>
+                <textarea id="sql_query" name="sql_query" class="form-control" rows="3" placeholder="Enter your SQL query here...">{{ request.form.get('sql_query', '') }}</textarea>
+            </div>
+            <button type="submit" class="btn btn-success">Execute Query</button>
+        </form>
+
+        {% if query_result %}
+            <h4>Query Results</h4>
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        {% for header in headers %}
+                            <th>{{ header }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in query_result %}
+                        <tr>
+                            {% for cell in row %}
+                                <td>{{ cell }}</td>
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        {% endif %}
+
+        <!-- Tabs Navigation -->
+        <ul class="nav nav-tabs mt-4" id="myTab" role="tablist">
+            <li class="nav-item">
+                <a class="nav-link active" id="employees-tab" data-toggle="tab" href="#employees" role="tab">Employees</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="services-tab" data-toggle="tab" href="#services" role="tab">Services</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="parcelles-tab" data-toggle="tab" href="#parcelles" role="tab">Parcelles</a>
+            </li>
+        </ul>
+
+        <!-- Tab Content -->
+        <div class="tab-content mt-4">
+            <!-- Employees Tab -->
+            <div class="tab-pane fade show active" id="employees" role="tabpanel">
+                <h3>Employees</h3>
+                <form action="{{ url_for('add_employee') }}" method="POST" class="form-inline mb-3">
+                    <input type="text" name="code_mnemo" class="form-control mr-2" placeholder="Code Mnemo" required>
+                    <input type="text" name="nom" class="form-control mr-2" placeholder="Last Name" required>
+                    <input type="text" name="prenom" class="form-control mr-2" placeholder="First Name" required>
+                    <button type="submit" class="btn btn-primary">Add Employee</button>
+                </form>
+                <ul class="list-group">
+                    {% for employe in employes %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            {{ employe.nom }} {{ employe.prenom }} (Code: {{ employe.code_mnemo }})
+                            <form action="{{ url_for('delete_employee', employee_id=employe.employee_id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Services Tab -->
+            <div class="tab-pane fade" id="services" role="tabpanel">
+                <h3>Services</h3>
+                <form action="{{ url_for('add_service') }}" method="POST" class="form-inline mb-3">
+                    <input type="text" name="nom_service" class="form-control mr-2" placeholder="Service Name" required>
+                    <button type="submit" class="btn btn-primary">Add Service</button>
+                </form>
+                <ul class="list-group">
+                    {% for service in services %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            {{ service.nom_service }}
+                            <form action="{{ url_for('delete_service', service_id=service.service_id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <!-- Parcelles Tab -->
+            <div class="tab-pane fade" id="parcelles" role="tabpanel">
+                <h3>Parcelles</h3>
+                <form action="{{ url_for('add_parcelle') }}" method="POST" class="form-inline mb-3">
+                    <input type="text" name="nom_parcelle" class="form-control mr-2" placeholder="Parcelle Name" required>
+                    <button type="submit" class="btn btn-primary">Add Parcelle</button>
+                </form>
+                <ul class="list-group">
+                    {% for parcelle in parcelles %}
+                        <li class="list-group-item d-flex justify-content-between">
+                            {{ parcelle.nom_parcelle }}
+                            <form action="{{ url_for('delete_parcelle', parcelle_id=parcelle.parcelle_id) }}" method="POST">
+                                <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bootstrap JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
