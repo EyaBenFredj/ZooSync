@@ -135,5 +135,7 @@ def delete_parcelle(parcelle_id):
     flash('Parcelle deleted successfully!', 'danger')
     return redirect(url_for('index'))
 
+
+
 if __name__ == '__main__':
     app.run(debug=True)
