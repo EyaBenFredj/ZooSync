@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.secret_key = 'supersecretkey'  # For flashing messages
 
 # MySQL Database Configuration
-app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:bogamenthe88@localhost/ZooManagement'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:PASSWORDTODATABASE@localhost/ZooManagement'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db = SQLAlchemy(app)
