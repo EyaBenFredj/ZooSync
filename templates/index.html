@@ -27,12 +27,12 @@
                 <select name="predefined_query" class="form-control mb-2">
                     <option value="">-- Select a Query --</option>
                     {% for key, query in predefined_queries.items() %}
-                        <option value="{{ key }}" {% if selected_query == key %}selected{% endif %}>Query {{ key }}</option>
+                        <option value="{{ key }}" {% if selected_query == key %}selected{% endif %}> Query  {{ key }}</option>
                     {% endfor %}
                 </select>
 
                 <label for="sql_query">Or Enter Your Own SQL Query:</label>
-                <textarea id="sql_query" name="sql_query" class="form-control" rows="3" placeholder="Enter your SQL query here...">{{ request.form.get('sql_query', '') }}</textarea>
+                <textarea id="sql_query" name="sql_query" class="form-control" rows="5" placeholder="Enter your SQL query here...">{{ request.form.get('sql_query', '') }}</textarea>
             </div>
             <button type="submit" class="btn btn-success">Execute Query</button>
         </form>
@@ -81,6 +81,8 @@
                     <input type="text" name="code_mnemo" class="form-control mr-2" placeholder="Code Mnemo" required>
                     <input type="text" name="nom" class="form-control mr-2" placeholder="Last Name" required>
                     <input type="text" name="prenom" class="form-control mr-2" placeholder="First Name" required>
+                    <input type="text" name="date_naissance" class="form-control mr-2" placeholder="date_naissance" required>
+
                     <button type="submit" class="btn btn-primary">Add Employee</button>
                 </form>
                 <ul class="list-group">
@@ -136,9 +138,6 @@
     </div>
 
 
-
-
-    <!-- Bootstrap JavaScript -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>

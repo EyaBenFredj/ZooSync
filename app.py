@@ -29,13 +29,16 @@ class Parcelle(db.Model):
     parcelle_id = db.Column(db.Integer, primary_key=True)
     nom_parcelle = db.Column(db.String(100), nullable=False)
 
-# Predefined SQL Queries
+
+
 PREDEFINED_QUERIES = {
-    '1': "SELECT * FROM Employes;",
-    '2': "SELECT * FROM Services;",
-    '3': "SELECT * FROM Parcelles;",
-    '4': "SELECT nom, prenom FROM Employes WHERE code_mnemo = 'JEA';",
-    '5': "SELECT * FROM Parcelles WHERE nom_parcelle LIKE 'Parcelle%';"
+    '1 : SELECT * FROM Employes;': "SELECT * FROM Employes;",
+    '2 : SELECT * FROM Services;': "SELECT * FROM Services;",
+    '3 : SELECT * FROM Parcelles;': "SELECT * FROM Parcelles;",
+    '4: SELECT * FROM Secteurs;': "SELECT * FROM Secteurs;",
+
+    "5 : SELECT nom, prenom FROM Employes WHERE code_mnemo = 'JEA';": "SELECT nom, prenom FROM Employes WHERE code_mnemo = 'JEA';",
+    " 6 : SELECT * FROM Parcelles WHERE nom_parcelle LIKE 'Parcelle%';": "SELECT * FROM Parcelles WHERE nom_parcelle LIKE 'Parcelle%';"
 }
 
 # Home Route with SQL Query Execution
@@ -85,6 +88,8 @@ def add_employee():
     code_mnemo = request.form['code_mnemo']
     nom = request.form['nom']
     prenom = request.form['prenom']
+    date_naissance = request.form[' date_naissance']
+
     new_employee = Employe(code_mnemo=code_mnemo, nom=nom, prenom=prenom)
     db.session.add(new_employee)
     db.session.commit()
@@ -134,7 +139,6 @@ def delete_parcelle(parcelle_id):
     db.session.commit()
     flash('Parcelle deleted successfully!', 'danger')
     return redirect(url_for('index'))
-
 
 
 if __name__ == '__main__':
