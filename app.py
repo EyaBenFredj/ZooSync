@@ -13,33 +13,35 @@ db = SQLAlchemy(app)
 
 # Models
 class Employe(db.Model):
-    __tablename__ = 'Employes'
+    __tablename__ = 'employes'  # Updated to lowercase
     employee_id = db.Column(db.Integer, primary_key=True)
     code_mnemo = db.Column(db.String(3), nullable=False)
     nom = db.Column(db.String(50), nullable=False)
     prenom = db.Column(db.String(50), nullable=False)
 
 class Service(db.Model):
-    __tablename__ = 'Services'
+    __tablename__ = 'services'  # Updated to lowercase
     service_id = db.Column(db.Integer, primary_key=True)
     nom_service = db.Column(db.String(100), nullable=False)
 
 class Parcelle(db.Model):
-    __tablename__ = 'Parcelles'
+    __tablename__ = 'parcelles'  # Updated to lowercase
     parcelle_id = db.Column(db.Integer, primary_key=True)
     nom_parcelle = db.Column(db.String(100), nullable=False)
 
 
-
 PREDEFINED_QUERIES = {
-    '1 : SELECT * FROM Employes;': "SELECT * FROM Employes;",
-    '2 : SELECT * FROM Services;': "SELECT * FROM Services;",
-    '3 : SELECT * FROM Parcelles;': "SELECT * FROM Parcelles;",
-    '4: SELECT * FROM Secteurs;': "SELECT * FROM Secteurs;",
+    '1 : SELECT * FROM Employes;': "SELECT * FROM employes;",
+    '2 : SELECT * FROM Services;': "SELECT * FROM services;",
+    '3 : SELECT * FROM Parcelles;': "SELECT * FROM parcelles;",
+    '4: SELECT * FROM Secteurs;': "SELECT * FROM secteurs;",
 
-    "5 : SELECT nom, prenom FROM Employes WHERE code_mnemo = 'JEA';": "SELECT nom, prenom FROM Employes WHERE code_mnemo = 'JEA';",
-    " 6 : SELECT * FROM Parcelles WHERE nom_parcelle LIKE 'Parcelle%';": "SELECT * FROM Parcelles WHERE nom_parcelle LIKE 'Parcelle%';"
+    "5 : SELECT nom, prenom FROM Employes WHERE code_mnemo = 'JEA';": "SELECT nom, prenom FROM employes WHERE code_mnemo = 'JEA';",
+    "6 : SELECT * FROM Parcelles WHERE nom_parcelle LIKE 'Parcelle%';": "SELECT * FROM parcelles WHERE nom_parcelle LIKE 'Parcelle%';"
 }
+
+
+
 
 # Home Route with SQL Query Execution
 @app.route('/', methods=['GET', 'POST'])
