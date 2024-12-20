@@ -3,6 +3,7 @@
 Welcome to **ZooSync**! This is a simple and intuitive Zoo Management System built using Flask 🐍 and SQLAlchemy 💾. With ZooSync, you can manage employees, services, and parcels in a zoo environment efficiently!
 
 ---
+![image](https://github.com/user-attachments/assets/84dc785c-60f5-46b2-aaa0-7e8c1bbe2f03)
 
 ## 🌟 **Features**
 
