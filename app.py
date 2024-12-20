@@ -40,10 +40,6 @@ PREDEFINED_QUERIES = {
     "6 : SELECT * FROM Parcelles WHERE nom_parcelle LIKE 'Parcelle%';": "SELECT * FROM parcelles WHERE nom_parcelle LIKE 'Parcelle%';"
 }
 
-
-
-
-# Home Route with SQL Query Execution
 @app.route('/', methods=['GET', 'POST'])
 def index():
     query_result = None
